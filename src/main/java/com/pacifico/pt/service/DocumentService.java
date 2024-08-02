@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.pacifico.pt.model.entity.Document;
 
-public interface DocumentoService {
+public interface DocumentService {
 
-  Document save(final Document document);
+  void save(final Document document);
 
   List<Document> findAll();
 }

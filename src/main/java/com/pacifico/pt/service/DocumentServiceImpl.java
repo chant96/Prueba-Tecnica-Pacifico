@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DocumentServiceImpl implements DocumentoService {
+public class DocumentServiceImpl implements DocumentService {
 
   @Autowired
   private DocumentDao documentDao;
 
   @Override
-  public Document save(Document document) {
-    return documentDao.save(document);
+  public void save(final Document document) {
+    documentDao.save(document);
   }
 
   @Override

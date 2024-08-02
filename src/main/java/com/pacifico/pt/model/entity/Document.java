@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Document")
+@Table(name = "document")
 public class Document implements Serializable {
 
   @Id
@@ -34,7 +34,6 @@ public class Document implements Serializable {
   @Column(name = "uploadDate")
   private Date uploadDate;
 
-
-  @Column(name = "file_size")
+  @Column(name = "fileSize")
   private String fileSize;
 }

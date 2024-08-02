@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.Objects;
 
 import com.pacifico.pt.model.entity.Document;
+import com.pacifico.pt.model.entity.DocumentData;
+import com.pacifico.pt.service.DocumentDataService;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,20 +30,38 @@ public class DocumentUtils {
   }
 
   /**
-   * Method to upload a document from an uploaded file.
+   * Method to obtain the properties of an uploaded file.
    *
-   * @param file the file type.
-   * @return The document with the file properties.
+   * @param file the file.
+   * @return The uploaded file properties.
    */
-  public static Document uploadDocument(final MultipartFile file) {
+  public static Document getPropertiesFromFile(final MultipartFile file) {
     final String fileName = separateByFileNameAndExtension(Objects.requireNonNull(file.getOriginalFilename()))[0];
     final String fileExtension = separateByFileNameAndExtension(Objects.requireNonNull(file.getOriginalFilename()))[1];
-
     final Document document = new Document();
     document.setFileName(fileName);
     document.setFileExtension(fileExtension);
     document.setUploadDate(new Date());
     document.setFileSize(String.valueOf(file.getSize()));
     return document;
+  }
+
+  /**
+   * Method to process an Excel file and save the document data.
+   *
+   * @param book The current book of Excel.
+   * @param documentDataService The service of the DocumentData.
+   */
+  public static void processExcelFile(final Workbook book, final DocumentDataService documentDataService) {
+    for (final Row row : book.getSheetAt(0)) {
+      if (row.getRowNum() == 0) {
+        continue;
+      }
+      final DocumentData documentData = new DocumentData();
+      documentData.setRowName(row.getCell(1).getStringCellValue());
+      documentData.setRowAge((int) row.getCell(2).getNumericCellValue());
+      documentData.setRowEmail(row.getCell(3).getStringCellValue());
+      documentDataService.save(documentData);
+    }
   }
 }
