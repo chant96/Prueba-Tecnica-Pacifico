@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "81ea0356-5997-4c55-b4dc-a80b5e9ad7af",
+		"name": "PruebaTecnica-Pacifico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21264118"
+	},
+	"item": [
+		{
+			"name": "UploadExcelFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "excelFile",
+							"type": "file",
+							"src": "postman-cloud:///1ef50533-17a2-41d0-af9b-61be756fe321"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/upload/excel",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload",
+						"excel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadPdfFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "pdfFile",
+							"type": "file",
+							"src": "/C:/Users/scasanme/Downloads/Material+del+curso+de+Java.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/upload/pdf",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload",
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDocuments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/documents",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

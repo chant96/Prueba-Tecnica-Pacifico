@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Swagger Prueba Tecnica - API
+  description: |-
+    Definición de API para prueba técnica.
+  version: 1.0.0
+externalDocs:
+  description: Repositorio del proyecto en Github
+  url: https://github.com/chant96/Prueba-Tecnica-Pacifico.git
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /upload/excel:
+    post:
+      tags:
+        - Documents
+      summary: Upload an Excel file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                excelFile:
+                  type: string
+                  format: binary
+                  description: The Excel file to be uploaded.
+      responses:
+        '200':
+          description: Archivo Excel subido y datos guardados.
+        '404':
+          description: ¡Archivo incorrecto o no se ha cargado!. Solo se permite cargar archivos tipo Excel.
+  
+  /upload/pdf:
+    post:
+      tags:
+        - Documents
+      summary: Upload a PDF file
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                pdfFile:
+                  type: string
+                  format: binary
+                  description: The PDF file to be uploaded.
+      responses:
+        '200':
+          description:
+            Archivo PDF subido y datos guardados.
+        '404':
+          description: ¡Archivo incorrecto o no se ha cargado!. Solo se permite cargar archivos tipo PDF.
+  
+  /documents:
+    get:
+      tags:
+        - Documents
+      summary: Gets uploaded documents
+      responses:
+        '200':
+          description: A file properties object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+              examples:
+                uploaded excel & PDF:
+                  value: [
+                    {
+                      "id": 1,
+                      "fileName": "PruebaTecnica_Datos 2 1",
+                      "fileExtension": "xlsx",
+                      "uploadDate": "2024-08-02T08:50:11.491+00:00",
+                      "fileSize": 8061
+                    },
+                    {
+                      "id": 2,
+                      "fileName": "Material+del+curso+de+Java",
+                      "fileExtension": "pdf",
+                      "uploadDate": "2024-08-02T08:50:21.439+00:00",
+                      "fileSize": 2737382
+                    }
+                  ]
+        '404':
+          description: Not Found
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The file ID.
+        fileName:
+          type: string
+          description: The file name.
+        fileExtension:
+          type: string
+          description: The file extension.
+        uploadDate:
+          type: string
+          format: date-time
+          description: The date when the file was uploaded.
+        fileSize:
+          type: integer
+          description: The size of the file in bytes.
